@@ -13,6 +13,7 @@
 /* IPv6 address length including port, e.g. [::1]:12345 */
 #define FULL_ADDSTRLEN (INET6_ADDRSTRLEN + 8)
 
+int is_prefix( const char str[], const char prefix[] );
 int is_suffix( const char str[], const char suffix[] );
 UCHAR *memdup( const UCHAR src[], size_t size );
 int query_sanitize( char buf[], size_t buflen, const char query[] );
