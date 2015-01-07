@@ -16,6 +16,10 @@
 #include "sha1.h"
 #include "utils.h"
 
+#define MAX(x, y) ((x) >= (y) ? (x) : (y))
+#define MIN(x, y) ((x) <= (y) ? (x) : (y))
+
+
 /* Also matches on equality */
 int is_prefix( const char str[], const char prefix[] ) {
 	size_t prefix_len;
@@ -190,9 +194,12 @@ void id_compute( UCHAR id[], const char str[] ) {
 	size_t size;
 
 	size = strlen( str );
-	if( size == SHA1_HEX_LENGTH && str_isHex( str, SHA1_HEX_LENGTH ) ) {
+	if( is_prefix( str, "hex_" ) && str_isHex( str + 4, size - 4) ) {
+		/* Make sure the rest of the id is filled with zeroes */
+		memset( id, 0, SHA1_BIN_LENGTH );
+
 		/* Treat hostname as hex string */
-		bytes_from_hex( id, str, SHA1_HEX_LENGTH );
+		bytes_from_hex( id, str + 4, MIN(size - 4, SHA1_HEX_LENGTH) );
 	} else {
 		SHA1_Init( &ctx );
 		SHA1_Update( &ctx, (const UCHAR *) str, size);
