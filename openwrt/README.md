@@ -1,7 +1,7 @@
 To inlcude KadNode into your OpenWRT image or to create
 an .ipk package (equivalent to Debians .deb files),
 you have to build an OpenWRT image.
-These steps were tested using OpenWRT-"Barrier Breaker" (14.07):
+These steps were tested using OpenWRT - "Chaos Calmer" (15.05):
 
 For building OpenWrt on Debian, you need to install these packages:
 <pre>
@@ -10,7 +10,7 @@ apt-get install git subversion g++ libncurses5-dev gawk zlib1g-dev build-essenti
 
 Now build OpenWrt:
 <pre>
-git clone git://git.openwrt.org/14.07/openwrt.git
+git clone git://git.openwrt.org/15.05/openwrt.git
 cd openwrt
 
 ./scripts/feeds update -a
@@ -19,11 +19,6 @@ cd openwrt
 git clone https://github.com/mwarning/KadNode.git
 cp -rf KadNode/openwrt/kadnode package/
 rm -rf KadNode/
-
-#Satisfy dependency in case authentication support is selected
-git clone https://github.com/mwarning/libsodium-openwrt.git
-cp -r libsodium-openwrt/libsodium package/
-rm -rf libsodium-openwrt
 
 make defconfig
 make menuconfig
@@ -85,7 +80,7 @@ is not available on OpenWrt.
 To use the DNS interface you can hook up KadNode with the dnsmasq DNS server:
 
 <pre>
-uci add_list dhcp.@dnsmasq[0].server='/p2p/localhost#5353'
+uci add_list dhcp.@dnsmasq[0].server='/p2p/::1#3535'
 uci commit dhcp
 </pre>
 
