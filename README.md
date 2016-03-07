@@ -1,3 +1,7 @@
+<a href="https://scan.coverity.com/projects/danger89-kadnode">
+  <img alt="Coverity Scan Build Status"
+       src="https://scan.coverity.com/projects/8184/badge.svg"/>
+</a>
 ## kadnode(1) - P2P name resolution daemon
 
 ## SYNOPSIS
